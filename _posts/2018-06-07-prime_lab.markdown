@@ -1,0 +1,63 @@
+---
+layout: post
+title:      "Prime? lab"
+date:       2018-06-07 23:18:13 +0000
+permalink:  prime_lab
+---
+
+
+Iterations over arrays have been the hardest so far. The more I work with them though, the more clear they become.
+One of the labs that I struggled with for more than others was the Prime? number lab that specifically asked not to use built in ruby math prime functions.
+The easiest way for me to tackle this issue was to start with simple if/elsif statements to get where I needed to be, to get the logic correct. This lab was little bit more challenging than usual, because of the additional use of modulo operator '%'. I had to stop several times and think about what is the modulo actually returning and then respond with a correct response.
+My original code snippet is below. 
+I took care of return values for all numbers below zero, 1 and 2 right at the beginning using simple if statements. Anything above 2 would have to be evaluated whether if it was prime number or not.
+I used a for loop with a range of numbers beginning with 2 and going all the way up to n-1 (I didn't want to evaluate n%n, because it would return 0 and thus could give me false answer).
+```
+def prime?(n)
+  if n <= 0 || n == 1
+    return false
+  elsif n == 2
+    return true
+  elsif n > 2
+    for i in 2..(n - 1) do 
+      if (n % i) == 0
+        return false
+      end
+    end
+  end
+   true
+end
+```
+After I made the above code to work, I went on to apply each do iteration to my logic. It actually was not as bad as I thought it would be to use an each do loop on an already set-up logic from my previous code example. All I had to do was to enter a range of numbers that I was going to use with my modulo operator and convert it into array with to_a. Then I iterated each number in my newly created "range" array. In each step, I looked at our given number "n" divided by number from our range array and seeing whether we had a division remainder. 
+
+```
+def prime?(n)
+  if n <= 0 || n == 1
+    return false
+  elsif n == 2
+    return true
+  end
+  
+  range = (2..(n - 1)).to_a
+  range.each do |i|
+    if (n % i) == 0
+     return false
+    end
+  end
+  true
+end
+```
+I had to use binding.pry couple of times to see whether I was getting correct returns for given values and I used prime and divisible numbers like 3, 4, 7, 9 to check my logic - example below.
+
+for example n=7
+7%2 #=> 1
+7%3 #=> 1
+7%4 #=> 3
+7%5 #=> 2
+7%6   (i=n-1) #=> 1
+Which none of the iterations == 0, thus 7 would return true value as this is a prime number.
+
+The most important thing for me is to start with what I am comfortable with - work through initial logic, even if it means more lines of code. Then try to re-write the code, use Google a lot for research :-) and use binding.pry, that has been my life saver!
+
+
+
